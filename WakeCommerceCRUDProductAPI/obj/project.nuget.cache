@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "S5DKkXqUbbxW61n+ZdGkowjSG4ZkOpZ21tvgOzOToSKuD/aDh39OuZtgIRMkKERs1GUBilVUCNX1W93SH2R8WA==",
+  "dgSpecHash": "oGRCBWwlbCGEuVrOaMtXno+ek+/tRvVW3o7eKfhlYgyAm1XccV8htLMUAN3/ftoNJKPxQoPss+fduA3S+GeSTA==",
   "success": true,
-  "projectFilePath": "D:\\Projetos2024\\ProjetosGIT\\WakeCommerceCRUDProduct\\WakeCommerceCRUDProductAPI\\WakeCommerceCRUDProductAPI.csproj",
+  "projectFilePath": "D:\\Projetos2024\\ProjetosGIT\\WakeCommerceCRUDProduct\\WakeCommerceCRUDProductAPI\\WakeCommerceCRUDProduct.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gabri\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\gabri\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",

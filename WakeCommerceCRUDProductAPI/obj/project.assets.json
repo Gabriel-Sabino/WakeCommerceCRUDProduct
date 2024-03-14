@@ -434,9 +434,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projetos2024\\ProjetosGIT\\WakeCommerceCRUDProduct\\WakeCommerceCRUDProductAPI\\WakeCommerceCRUDProductAPI.csproj",
-      "projectName": "WakeCommerceCRUDProductAPI",
-      "projectPath": "D:\\Projetos2024\\ProjetosGIT\\WakeCommerceCRUDProduct\\WakeCommerceCRUDProductAPI\\WakeCommerceCRUDProductAPI.csproj",
+      "projectUniqueName": "D:\\Projetos2024\\ProjetosGIT\\WakeCommerceCRUDProduct\\WakeCommerceCRUDProductAPI\\WakeCommerceCRUDProduct.API.csproj",
+      "projectName": "WakeCommerceCRUDProduct.API",
+      "projectPath": "D:\\Projetos2024\\ProjetosGIT\\WakeCommerceCRUDProduct\\WakeCommerceCRUDProductAPI\\WakeCommerceCRUDProduct.API.csproj",
       "packagesPath": "C:\\Users\\gabri\\.nuget\\packages\\",
       "outputPath": "D:\\Projetos2024\\ProjetosGIT\\WakeCommerceCRUDProduct\\WakeCommerceCRUDProductAPI\\obj\\",
       "projectStyle": "PackageReference",
