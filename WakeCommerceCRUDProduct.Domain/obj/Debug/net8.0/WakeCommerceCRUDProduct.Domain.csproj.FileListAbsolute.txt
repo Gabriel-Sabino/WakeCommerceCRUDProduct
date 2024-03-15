@@ -1,0 +1,12 @@
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\bin\Debug\net8.0\WakeCommerceCRUDProduct.Domain.deps.json
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\bin\Debug\net8.0\WakeCommerceCRUDProduct.Domain.dll
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\bin\Debug\net8.0\WakeCommerceCRUDProduct.Domain.pdb
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\obj\Debug\net8.0\WakeCommerceCRUDProduct.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\obj\Debug\net8.0\WakeCommerceCRUDProduct.Domain.AssemblyInfoInputs.cache
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\obj\Debug\net8.0\WakeCommerceCRUDProduct.Domain.AssemblyInfo.cs
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\obj\Debug\net8.0\WakeCommerceCRUDProduct.Domain.csproj.CoreCompileInputs.cache
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\obj\Debug\net8.0\WakeCommerceCRUDProduct.Domain.sourcelink.json
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\obj\Debug\net8.0\WakeCommerceCRUDProduct.Domain.dll
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\obj\Debug\net8.0\refint\WakeCommerceCRUDProduct.Domain.dll
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\obj\Debug\net8.0\WakeCommerceCRUDProduct.Domain.pdb
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Domain\obj\Debug\net8.0\ref\WakeCommerceCRUDProduct.Domain.dll

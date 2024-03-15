@@ -1,6 +1,22 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using WakeCommerceCRUDProduct.Application.Interfaces.Services;
+using WakeCommerceCRUDProduct.Application.Services;
+using WakeCommerceCRUDProduct.Domain.Entities;
+using WakeCommerceCRUDProduct.Domain.Interfaces.Repositories;
+using WakeCommerceCRUDProduct.Infrastructure.Data;
+using WakeCommerceCRUDProduct.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddDbContext<ProductDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
