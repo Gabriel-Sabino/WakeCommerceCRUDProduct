@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Set up .NET
-      uses: actions/setup-dotnet@v8  # Atualiza para a versão 8 do setup-dotnet
+      uses: actions/setup-dotnet@v7  # Atualiza para a versão 8 do setup-dotnet
       with:
         dotnet-version: '8.0.x'  # Ajusta para a versão do .NET que você está utilizando
 
