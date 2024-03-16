@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WakeCommerceCRUDProduct.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d94cb672cb71c7d6480cb634597c588f4752aca")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+742bae7fde89a2843e23a526168538eee7a4d994")]
 [assembly: System.Reflection.AssemblyProductAttribute("WakeCommerceCRUDProduct.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WakeCommerceCRUDProduct.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

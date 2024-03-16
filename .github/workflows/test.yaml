@@ -1,7 +1,8 @@
 name: Run Tests
 
-on: [push]
-
+on:
+   push:
+    branches: ["main"]
 jobs:
   build:
 
@@ -9,18 +10,22 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Set up .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'  
 
     - name: Restore dependencies
       run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
 
-    - name: Build and run unit tests
-      run: dotnet test --filter TestCategory=Unit
+    # - name: Build and run unit tests
+    #   run: dotnet test --filter TestCategory=Unit
 
-    - name: Build and run integration tests
-      run: dotnet test --filter TestCategory=Integration
+    # - name: Build and run integration tests
+    #   run: dotnet test --filter TestCategory=Integration
