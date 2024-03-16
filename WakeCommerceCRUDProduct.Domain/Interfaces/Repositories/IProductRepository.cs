@@ -12,9 +12,9 @@ namespace WakeCommerceCRUDProduct.Domain.Interfaces.Repositories
         Task<List<Product>> GetAllProductAsync();
         Task<Product> GetProductByIdAsync(int id);
         Task<Product> GetProductByNameAsync(string name);
-        Task<List<Product>> OrderByNameProductListAsync(string name);
-        Task<List<Product>> OrderByStockProductListAsync(string name);
-        Task<List<Product>> OrderByValueProductListAsync(string name);
+        Task<List<Product>> OrderByNameProductListAsync();
+        Task<List<Product>> OrderByStockProductListAsync();
+        Task<List<Product>> OrderByValueProductListAsync();
         Task<Product> CreateProductAsync(Product product);
         Task<int> UpdateProductAsync(int id, Product product);
         Task<int> DeleteProductAsync(int id);

@@ -5,11 +5,13 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WakeCommerceCRUDProduct.API", "WakeCommerceCRUDProductAPI\WakeCommerceCRUDProduct.API.csproj", "{1EF7CC3A-71C9-4C7D-A729-31476F2E8D75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeCommerceCRUDProduct.Domain", "WakeCommerceCRUDProduct.Domain\WakeCommerceCRUDProduct.Domain.csproj", "{3E057173-DC0E-48E1-90AF-C93210F28965}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WakeCommerceCRUDProduct.Domain", "WakeCommerceCRUDProduct.Domain\WakeCommerceCRUDProduct.Domain.csproj", "{3E057173-DC0E-48E1-90AF-C93210F28965}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeCommerceCRUDProduct.Infrastructure", "WakeCommerceCRUDProduct.Infrastructure\WakeCommerceCRUDProduct.Infrastructure.csproj", "{0E031D04-3DC8-4992-8B59-16B9168DA92F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WakeCommerceCRUDProduct.Infrastructure", "WakeCommerceCRUDProduct.Infrastructure\WakeCommerceCRUDProduct.Infrastructure.csproj", "{0E031D04-3DC8-4992-8B59-16B9168DA92F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeCommerceCRUDProduct.Application", "WakeCommerceCRUDProduct.Application\WakeCommerceCRUDProduct.Application.csproj", "{C5DDC577-A783-43E2-9C2B-FF80BF25BE23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WakeCommerceCRUDProduct.Application", "WakeCommerceCRUDProduct.Application\WakeCommerceCRUDProduct.Application.csproj", "{C5DDC577-A783-43E2-9C2B-FF80BF25BE23}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeCommerceCRUDProduct.Test", "WakeCommerceCRUDProduct.Test\WakeCommerceCRUDProduct.Test.csproj", "{9ADEF3D3-94D2-4B40-9F94-B32F4C262E95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C5DDC577-A783-43E2-9C2B-FF80BF25BE23}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5DDC577-A783-43E2-9C2B-FF80BF25BE23}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5DDC577-A783-43E2-9C2B-FF80BF25BE23}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ADEF3D3-94D2-4B40-9F94-B32F4C262E95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ADEF3D3-94D2-4B40-9F94-B32F4C262E95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ADEF3D3-94D2-4B40-9F94-B32F4C262E95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ADEF3D3-94D2-4B40-9F94-B32F4C262E95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

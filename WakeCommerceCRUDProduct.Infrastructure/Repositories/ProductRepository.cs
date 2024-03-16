@@ -18,6 +18,7 @@ namespace WakeCommerceCRUDProduct.Infrastructure.Repositories
         {
             _dbContext = productDbContext;
         }
+
         public async Task<Product> CreateProductAsync(Product product)
         {
             await _dbContext.Products.AddAsync(product);
@@ -27,9 +28,13 @@ namespace WakeCommerceCRUDProduct.Infrastructure.Repositories
 
         public async Task<int> DeleteProductAsync(int id)
         {
-           return await _dbContext.Products
-                .Where(x => x.Id == id)
-                .ExecuteDeleteAsync();
+            var product = await _dbContext.Products.FindAsync(id);
+            if (product != null)
+            {
+                _dbContext.Products.Remove(product);
+                return await _dbContext.SaveChangesAsync();
+            }
+            return 0;
         }
 
         public async Task<List<Product>> GetAllProductAsync()
@@ -42,21 +47,13 @@ namespace WakeCommerceCRUDProduct.Infrastructure.Repositories
             return await _dbContext.Products
                 .AsNoTracking()
                 .SingleOrDefaultAsync(x => x.Id == id);
+
         }
 
         public async Task<int> UpdateProductAsync(int id, Product product)
         {
-            //duas opcoes para realizar o update
-
             _dbContext.Entry(product).State = EntityState.Modified;
             return await _dbContext.SaveChangesAsync();
-
-            //return await _dbContext.Products.Where(x => x.Id == id)
-            //    .ExecuteUpdateAsync(setters => setters
-            //    .SetProperty(o => o.Id, product.Id)
-            //    .SetProperty(o => o.Name, product.Name)
-            //    .SetProperty(o => o.Stock, product.Stock)
-            //    .SetProperty(o => o.Value, product.Value));
         }
 
         public async Task<Product> GetProductByNameAsync(string name)
@@ -66,17 +63,17 @@ namespace WakeCommerceCRUDProduct.Infrastructure.Repositories
             return product;
         }
 
-        public async Task<List<Product>> OrderByNameProductListAsync(string name)
+        public async Task<List<Product>> OrderByNameProductListAsync()
         {
             return await _dbContext.Products.OrderBy(x => x.Name).ToListAsync();
         }
 
-        public async Task<List<Product>> OrderByStockProductListAsync(string name)
+        public async Task<List<Product>> OrderByStockProductListAsync()
         {
             return await _dbContext.Products.OrderBy(x => x.Stock).ToListAsync();
         }
 
-        public async Task<List<Product>> OrderByValueProductListAsync(string name)
+        public async Task<List<Product>> OrderByValueProductListAsync()
         {
             return await _dbContext.Products.OrderBy(x => x.Value).ToListAsync();
         }

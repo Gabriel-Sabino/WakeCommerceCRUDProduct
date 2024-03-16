@@ -1,0 +1,26 @@
+name: Run Tests
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up .NET
+      uses: actions/setup-dotnet@v8  # Atualiza para a versão 8 do setup-dotnet
+      with:
+        dotnet-version: '8.0.x'  # Ajusta para a versão do .NET que você está utilizando
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build and run unit tests
+      run: dotnet test --filter TestCategory=Unit
+
+    - name: Build and run integration tests
+      run: dotnet test --filter TestCategory=Integration

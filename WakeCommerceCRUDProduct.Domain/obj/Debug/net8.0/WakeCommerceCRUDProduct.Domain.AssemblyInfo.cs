@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WakeCommerceCRUDProduct.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a608ae0c66fbbee7e1893ffd30f4b2d7913dbd3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6d94cb672cb71c7d6480cb634597c588f4752aca")]
 [assembly: System.Reflection.AssemblyProductAttribute("WakeCommerceCRUDProduct.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WakeCommerceCRUDProduct.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

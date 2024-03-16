@@ -9,61 +9,81 @@ namespace WakeCommerceCRUDProduct.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController(IProductService productService) : ControllerBase
     {
-        private readonly IProductService _productService;
+        private readonly IProductService _productService = productService;
 
-        public ProductController(IProductService productService)
-        {
-            _productService = productService;
-        }
-
-        [HttpGet]
+        [HttpGet("GetAllProducts")]
         public async Task<IActionResult> GetAllAsync()
         {
-            var product = await _productService.GetAllProductAsync();
-            return Ok(product);
+            try
+            {
+                var products = await _productService.GetAllProductAsync();
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal Server Error: " + ex.Message);
+            }
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
-            var product = await _productService.GetProductByIdAsync(id);
-            if(product == null)
-                return NotFound();
+
+            try
+            {
+                var product = await _productService.GetProductByIdAsync(id);
+
+                if (product != null)
+                return Ok(product);
+
+                return NotFound("Produto Nao Encontrado");
+            }
+            catch
+            {
+                return NotFound("Produto Nao Encontrado");
+            }
             
-            return Ok(product);
         }
 
-        [HttpGet("product/{name}")]
+        [HttpGet("GetByName/{name}")]
         public async Task<IActionResult> GetByNameAsync(string name)
         {
-            var product = await _productService.GetProductByNameAsync(name);
-            if (product == null)
-                return NotFound();
+            try
+            {
+                var product = await _productService.GetProductByNameAsync(name);
 
-            return Ok(product);
+                if (product != null)
+                    return Ok(product);
+
+                return NotFound("Produto Nao Encontrado");
+            }
+            catch
+            {
+                return NotFound("Produto Nao Encontrado");
+            }
         }
 
-        [HttpGet("orderby/{name}")]
+        [HttpGet("GetOrderByNameOrStockOrValue/{name}")]
         public async Task<IActionResult> OrderByProductAsync(string name)
         {
             try 
             {
                 var product = await _productService.OrderByProductListAsync(name);
-
+                if (product == null || !product.Any())
+                    return BadRequest();
 
                 return Ok(product);
-
             }
-            catch (ArgumentNullException ex) 
+            catch 
             {
-                return BadRequest(ex.Message);
+                return BadRequest();
             }
             
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<IActionResult> CreateAsync(ProductDTO productDTO)
         {
             if (!ModelState.IsValid)
@@ -76,7 +96,7 @@ namespace WakeCommerceCRUDProduct.API.Controllers
                 var product = new Product(productDTO.Name, productDTO.Stock, productDTO.Value);
 
                 var createdProduct = await _productService.CreateProductAsync(product);
-                return CreatedAtAction(nameof(GetByIdAsync), new { id = createdProduct.Id }, createdProduct);
+                return Ok(createdProduct);
             }
             catch (ArgumentException ex)
             {
@@ -85,7 +105,7 @@ namespace WakeCommerceCRUDProduct.API.Controllers
             
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Update/{id}")]
         public async Task<IActionResult> UpdateAsync(int id, ProductDTO productDTO)
         {
             var product = new Product(productDTO.Name, productDTO.Stock, productDTO.Value);
@@ -98,7 +118,7 @@ namespace WakeCommerceCRUDProduct.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             int product = await _productService.DeleteProductAsync(id);
@@ -107,5 +127,7 @@ namespace WakeCommerceCRUDProduct.API.Controllers
 
             return NoContent();
         }
+
+
     }
 }

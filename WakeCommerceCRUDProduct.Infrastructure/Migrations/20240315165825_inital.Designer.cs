@@ -13,7 +13,7 @@ namespace WakeCommerceCRUDProduct.Infrastructure.Migrations
 {
     [DbContext(typeof(ProductDbContext))]
     [Migration("20240315165825_inital")]
-    partial class inital
+    partial class Inital
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
