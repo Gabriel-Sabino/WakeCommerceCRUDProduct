@@ -2,7 +2,7 @@
 ![image](https://github.com/Gabriel-Sabino/WakeCommerceCRUDProduct/assets/71478369/a04b19fc-7720-45bd-937c-3c8ec00c0de0)
 
 ![Version](https://img.shields.io/badge/Version%201.0-8A2BE2)
-[![LinkedIn](https://img.shields.io/badge/Linkedin-blue)]([https://www.linkedin.com/in/seu-nome-aqui/](https://www.linkedin.com/in/gabriel-sabino1/))
+[![LinkedIn](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/gabriel-sabino1/)
 [![Project Status: Development](https://img.shields.io/badge/Project%20Status-Development-orange)](https://github.com/Gabriel-Sabino/WakeCommerceCRUDProduct)
 ![Commit Activity](https://img.shields.io/github/commit-activity/t/Gabriel-Sabino/WakeCommerceCRUDProduct?color=darkgreen)
 ![Last Commit](https://img.shields.io/github/last-commit/Gabriel-Sabino/WakeCommerceCRUDProduct?color=yellow)
