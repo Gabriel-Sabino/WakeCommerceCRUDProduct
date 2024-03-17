@@ -9,7 +9,7 @@
 
 ## Descrição
 
-Bem-vindo ao WakeCommerceCRUDProduct, um aplicativo CRUD simples para gerenciar produtos. Este projeto fornece funcionalidades básicas para Criar, Ler, Atualizar e Excluir informações de produtos, juntamente com testes unitários e de integração em memória para garantir a qualidade do código.
+Bem-vindo ao WakeCommerceCRUDProduct, uma API CRUD simples para gerenciar produtos. Este projeto fornece funcionalidades básicas para Criar, Ler, Atualizar e Excluir informações de produtos, juntamente com testes unitários e de integração em memória para garantir a qualidade do código.
 
 
 ## Tecnologias Utilizadas
