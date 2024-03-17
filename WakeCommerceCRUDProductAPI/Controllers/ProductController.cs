@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using WakeCommerceCRUDProduct.Application.DTOs;
 using WakeCommerceCRUDProduct.Application.Interfaces.Services;
 using WakeCommerceCRUDProduct.Domain.Entities;
@@ -124,7 +125,7 @@ namespace WakeCommerceCRUDProduct.API.Controllers
         /// {
         /// "name": "string",
         /// "stock": 0,
-        /// "value": 0
+        /// "value": 00.00
         /// }
         /// </remarks>
         /// <param name="productDTO">Dados do Produto</param>
@@ -132,7 +133,7 @@ namespace WakeCommerceCRUDProduct.API.Controllers
         /// <response code="200">Sucesso</response>
         [HttpPost("Create")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> CreateAsync(ProductDTO productDTO)
+        public async Task<IActionResult> CreateAsync(ProductDTOCreateAndUpdate productDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -141,7 +142,11 @@ namespace WakeCommerceCRUDProduct.API.Controllers
 
             try
             {
-                var product = new Product(productDTO.Name, productDTO.Stock, productDTO.Value);
+                //caso o usuario entre com , ou . a api aceitara e salvara no banco da mesma forma como Decimal
+                string valorCorrigido = productDTO.Value.Replace(",", ".");
+                decimal valorDecimal = decimal.Parse(valorCorrigido, CultureInfo.InvariantCulture);
+
+                var product = new Product(productDTO.Name, productDTO.Stock, valorDecimal);
 
                 var createdProduct = await _productService.CreateProductAsync(product);
                 return Ok(createdProduct);
@@ -160,27 +165,29 @@ namespace WakeCommerceCRUDProduct.API.Controllers
         /// {
         /// "name": "string",
         /// "stock": 0,
-        /// "value": 0
+        /// "value": 00.00
         /// }
         /// </remarks>
         /// <param name="id">Identificador do Produto</param>
         /// <param name="productDTO">Dados do Produto que deseja atualizar</param>
         /// <returns>Sem Conteudo</returns>
-        /// <response code="204">Sucesso</response>
+        /// <response code="200">Sucesso</response>
         /// <response code="400">Bad Request</response>
     [HttpPut("Update/{id}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateAsync(int id, ProductDTO productDTO)
+        public async Task<IActionResult> UpdateAsync(int id, ProductDTOCreateAndUpdate productDTO)
         {
-            var product = new Product(productDTO.Name, productDTO.Stock, productDTO.Value);
+            string valorCorrigido = productDTO.Value.Replace(",", ".");
+            decimal valorDecimal = decimal.Parse(valorCorrigido, CultureInfo.InvariantCulture);
 
+            var product = new Product(productDTO.Name, productDTO.Stock, valorDecimal);
 
-            int existingProduct = await _productService.UpdateProductAsync(id, product);
+            var existingProduct = await _productService.UpdateProductAsync(id, product);
             if(existingProduct == 0)
                 return BadRequest();
 
-            return NoContent();
+            return Ok(existingProduct);
         }
 
         /// <summary>
@@ -191,6 +198,8 @@ namespace WakeCommerceCRUDProduct.API.Controllers
         /// <response code="204">Sucesso</response>
         /// <response code="400">Bad Request</response>
         [HttpDelete("Delete/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Delete(int id)
         {
             int product = await _productService.DeleteProductAsync(id);

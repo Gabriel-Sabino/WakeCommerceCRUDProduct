@@ -41,7 +41,7 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
             {
                 var productService = new ProductService(new ProductRepository(context));
                 var controller = new ProductController(productService);
-                var productDTO = new ProductDTO { Name = "Test Product", Stock = 10, Value = 100 };
+                var productDTO = new ProductDTOCreateAndUpdate { Name = "Test Product", Stock = 10, Value = "100" };
 
                 // Act
                 var result = await controller.CreateAsync(productDTO);
@@ -51,7 +51,7 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
                 var createdProduct = Assert.IsType<ProductDTO>(okResult.Value);
                 Assert.Equal(productDTO.Name, createdProduct.Name);
                 Assert.Equal(productDTO.Stock, createdProduct.Stock);
-                Assert.Equal(productDTO.Value, createdProduct.Value);
+                Assert.Equal(productDTO.Value, createdProduct.Value.ToString());
             }
         }
 
@@ -64,7 +64,7 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
                 var productService = new ProductService(new ProductRepository(context));
                 var controller = new ProductController(productService);
                 controller.ModelState.AddModelError("Name", "Name is required");
-                var productDTO = new ProductDTO();
+                var productDTO = new ProductDTOCreateAndUpdate();
 
                 // Act
                 var result = await controller.CreateAsync(productDTO);
@@ -83,7 +83,7 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
             {
                 var productService = new ProductService(new ProductRepository(context));
                 var controller = new ProductController(productService);
-                var productDTO = new ProductDTO { Name = "Test Product", Stock = 10, Value = 100 };
+                var productDTO = new ProductDTOCreateAndUpdate { Name = "Test Product", Stock = 10, Value = "100" };
 
                 productDTO.Name = null;
 
@@ -103,7 +103,7 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
             var productId = 1;
             var productName = "Updated Product";
             var productStock = 20;
-            var productValue = 200;
+            var productValue = "200";
 
             using (var context = GetDbContext())
             {
@@ -118,13 +118,13 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
                 var productService = new ProductService(new ProductRepository(context));
                 var controller = new ProductController(productService);
 
-                var updatedProductDTO = new ProductDTO { Name = productName, Stock = productStock, Value = productValue };
+                var updatedProductDTO = new ProductDTOCreateAndUpdate { Name = productName, Stock = productStock, Value = productValue };
 
                 // Act
                 var result = await controller.UpdateAsync(productId, updatedProductDTO);
 
                 // Assert
-                Assert.IsType<NoContentResult>(result);
+                Assert.IsType<OkObjectResult>(result);
             }
         }
 

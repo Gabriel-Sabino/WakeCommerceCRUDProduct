@@ -20,7 +20,7 @@ namespace WakeCommerceCRUDProduct.Test.UnitTest
             productServiceMock.Setup(x => x.CreateProductAsync(It.IsAny<Product>())).ReturnsAsync(new ProductDTO { Name = "Test Product", Stock = 10, Value = 100 });
 
             var controller = new ProductController(productServiceMock.Object);
-            var productDTO = new ProductDTO { Name = "Test Product", Stock = 10, Value = 100 };
+            var productDTO = new ProductDTOCreateAndUpdate { Name = "Test Product", Stock = 10, Value = "100" };
 
             // Act
             var result = await controller.CreateAsync(productDTO);
@@ -42,7 +42,7 @@ namespace WakeCommerceCRUDProduct.Test.UnitTest
             controller.ModelState.AddModelError("Name", "Name is required");
 
             // Act
-            var result = await controller.CreateAsync(new ProductDTO());
+            var result = await controller.CreateAsync(new ProductDTOCreateAndUpdate());
 
             // Assert
             var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
@@ -59,10 +59,10 @@ namespace WakeCommerceCRUDProduct.Test.UnitTest
             var controller = new ProductController(productServiceMock.Object);
 
             // Act
-            var result = await controller.UpdateAsync(1, new ProductDTO { Name = "Updated Product", Stock = 20, Value = 200 });
+            var result = await controller.UpdateAsync(1, new ProductDTOCreateAndUpdate { Name = "Updated Product", Stock = 20, Value = "200" });
 
             // Assert
-            Assert.IsType<NoContentResult>(result);
+            Assert.IsType<OkObjectResult>(result);
         }
 
         [Fact]
@@ -75,7 +75,7 @@ namespace WakeCommerceCRUDProduct.Test.UnitTest
             var controller = new ProductController(productServiceMock.Object);
 
             // Act
-            var result = await controller.UpdateAsync(999, new ProductDTO { Name = "Updated Product", Stock = 20, Value = 200 });
+            var result = await controller.UpdateAsync(999, new ProductDTOCreateAndUpdate { Name = "Updated Product", Stock = 20, Value = "200" });
 
             // Assert
             Assert.IsType<BadRequestResult>(result);

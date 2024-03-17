@@ -1,4 +1,5 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
 using WakeCommerceCRUDProduct.Application.DTOs;
 using WakeCommerceCRUDProduct.Application.Interfaces.Services;
 using WakeCommerceCRUDProduct.Domain.Entities;
@@ -21,7 +22,6 @@ namespace WakeCommerceCRUDProduct.Application.Services
             {
                 throw new ArgumentException("O produto deve estar preenchido.");
             }
-
 
             var product = await _productRepository.CreateProductAsync(productInfo);
 
@@ -46,6 +46,7 @@ namespace WakeCommerceCRUDProduct.Application.Services
         {
             var product = await _productRepository.GetAllProductAsync()
                  ?? throw new InvalidOperationException("Produtos não encontrados.");
+
             IEnumerable<ProductDTO> productDTOs = product
                 .Select(product => new ProductDTO
         {

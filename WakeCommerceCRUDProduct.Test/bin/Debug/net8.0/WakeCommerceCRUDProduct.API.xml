@@ -39,7 +39,7 @@
             <response code="200">Sucesso</response>
             <response code="400">Bad Request</response>
         </member>
-        <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.CreateAsync(WakeCommerceCRUDProduct.Application.DTOs.ProductDTO)">
+        <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.CreateAsync(WakeCommerceCRUDProduct.Application.DTOs.ProductDTOCreateAndUpdate)">
             <summary>
             Cadastrar um Produto
             </summary>
@@ -47,14 +47,14 @@
             {
             "name": "string",
             "stock": 0,
-            "value": 0
+            "value": 00.00
             }
             </remarks>
             <param name="productDTO">Dados do Produto</param>
             <returns>Produto recém criado</returns>
             <response code="200">Sucesso</response>
         </member>
-        <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.UpdateAsync(System.Int32,WakeCommerceCRUDProduct.Application.DTOs.ProductDTO)">
+        <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.UpdateAsync(System.Int32,WakeCommerceCRUDProduct.Application.DTOs.ProductDTOCreateAndUpdate)">
             <summary>
             Atualizar um Produto
             </summary>
@@ -62,13 +62,13 @@
             {
             "name": "string",
             "stock": 0,
-            "value": 0
+            "value": 00.00
             }
             </remarks>
             <param name="id">Identificador do Produto</param>
             <param name="productDTO">Dados do Produto que deseja atualizar</param>
             <returns>Sem Conteudo</returns>
-            <response code="204">Sucesso</response>
+            <response code="200">Sucesso</response>
             <response code="400">Bad Request</response>
         </member>
         <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.Delete(System.Int32)">
