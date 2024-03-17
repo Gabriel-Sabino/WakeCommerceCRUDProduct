@@ -133,7 +133,7 @@ namespace WakeCommerceCRUDProduct.Tests
 
             using (var context = GetDbContext())
             {
-                // No products added to the database
+                // Product vazio
             }
 
             using (var context = GetDbContext())

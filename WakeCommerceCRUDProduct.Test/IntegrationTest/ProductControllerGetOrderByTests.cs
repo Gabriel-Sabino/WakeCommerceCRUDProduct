@@ -47,7 +47,6 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
         public async Task OrderByProductNameAsync_ReturnsOrderedProducts()
         {
 
-            // Cria e preenche o banco de dados em memória com alguns produtos
             using (var context = GetDbContext())
             {
                 context.Products.AddRange(
@@ -60,7 +59,6 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                // Cria o serviço de produto com o contexto do banco de dados em memória
                 var productService = new ProductService(new ProductRepository(context));
                 var controller = new ProductController(productService);
 
@@ -71,10 +69,8 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
                 var okResult = Assert.IsType<OkObjectResult>(result);
                 var products = Assert.IsAssignableFrom<IEnumerable<ProductDTO>>(okResult.Value);
 
-                // Converte a lista de produtos em uma lista ordenada
                 var orderedProducts = products.OrderBy(p => p.Name).ToList();
 
-                // Verifica se os produtos estão na ordem correta
                 Assert.Equal("Product 1", orderedProducts[0].Name);
                 Assert.Equal("Product 2", orderedProducts[1].Name);
                 Assert.Equal("Product 3", orderedProducts[2].Name);
@@ -85,7 +81,6 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
         public async Task OrderByProductStockAsync_ReturnsOrderedProducts()
         {
 
-            // Cria e preenche o banco de dados em memória com alguns produtos
             using (var context = GetDbContext())
             {
                 context.Products.AddRange(
@@ -98,7 +93,6 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                // Cria o serviço de produto com o contexto do banco de dados em memória
                 var productService = new ProductService(new ProductRepository(context));
                 var controller = new ProductController(productService);
 
@@ -109,10 +103,8 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
                 var okResult = Assert.IsType<OkObjectResult>(result);
                 var products = Assert.IsAssignableFrom<IEnumerable<ProductDTO>>(okResult.Value);
 
-                // Converte a lista de produtos em uma lista ordenada
                 var orderedProducts = products.OrderBy(p => p.Stock).ToList();
 
-                // Verifica se os produtos estão na ordem correta
                 Assert.Equal("Product 2", orderedProducts[0].Name);
                 Assert.Equal("Product 1", orderedProducts[1].Name);
                 Assert.Equal("Product 3", orderedProducts[2].Name);
@@ -123,7 +115,6 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
         public async Task OrderByProductValueAsync_ReturnsOrderedProducts()
         {
 
-            // Cria e preenche o banco de dados em memória com alguns produtos
             using (var context = GetDbContext())
             {
                 context.Products.AddRange(
@@ -136,7 +127,6 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                // Cria o serviço de produto com o contexto do banco de dados em memória
                 var productService = new ProductService(new ProductRepository(context));
                 var controller = new ProductController(productService);
 
@@ -147,10 +137,8 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
                 var okResult = Assert.IsType<OkObjectResult>(result);
                 var products = Assert.IsAssignableFrom<IEnumerable<ProductDTO>>(okResult.Value);
 
-                // Converte a lista de produtos em uma lista ordenada
                 var orderedProducts = products.OrderBy(p => p.Value).ToList();
 
-                // Verifica se os produtos estão na ordem correta
                 Assert.Equal("Product 3", orderedProducts[0].Name);
                 Assert.Equal("Product 2", orderedProducts[1].Name);
                 Assert.Equal("Product 1", orderedProducts[2].Name);
@@ -162,7 +150,6 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
         {
             
 
-            // Cria e preenche o banco de dados em memória com alguns produtos
             using (var context = GetDbContext())
             {
                 context.Products.AddRange(

@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using WakeCommerceCRUDProduct.Application.Interfaces.Services;
 using WakeCommerceCRUDProduct.Application.Services;
 using WakeCommerceCRUDProduct.Domain.Entities;
@@ -10,7 +9,6 @@ using WakeCommerceCRUDProduct.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
 builder.Services.AddDbContext<ProductDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -19,24 +17,41 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+//documentacao API
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "WakeCommerceCRUDProduct",
+        Version = "v1",
+        Contact = new OpenApiContact
+        {
+            Name = "Gabriel Sabino",
+            Email = "gabrielsabino1505@gmail.com",
+            Url = new Uri("https://www.linkedin.com/in/gabriel-sabino1/")
+        }
+    });
+
+    var xmlFile = "WakeCommerceCRUDProduct.API.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+
+});
 
 var app = builder.Build();
 
+//Inserindo informacoes no banco ao iniciar o projeto
 using (var scope = app.Services.CreateScope())
 {
     var serviceProvider = scope.ServiceProvider;
     var dbContext = serviceProvider.GetRequiredService<ProductDbContext>();
 
-    // Certifique-se de que o banco de dados foi criado
     dbContext.Database.EnsureCreated();
 
-    // Verifique se existem alguns produtos no banco de dados
     if (!dbContext.Products.Any())
     {
-        // Adicione algumas linhas ao banco de dados
         dbContext.Products.AddRange(
                     new Product("Product 1", 10, 100),
                     new Product("Product 2", 20, 200),
@@ -49,7 +64,6 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

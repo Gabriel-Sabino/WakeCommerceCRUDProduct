@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WakeCommerceCRUDProduct.API</name>
+    </assembly>
+    <members>
+        <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.GetAllAsync">
+            <summary>
+            Obter todos os Produtos
+            </summary>
+            <returns>Coleção de Produtos</returns>
+            <response code="200">Sucesso</response>
+            <response code="500">Erro interno</response>
+        </member>
+        <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.GetByIdAsync(System.Int32)">
+            <summary>
+            Obter um Produto por Id
+            </summary>
+            <param name="id">Identificador do Produto</param>
+            <returns>Dados do Produto especificado</returns>
+            <response code="200">Sucesso</response>
+            <response code="404">Não encontrado</response>
+        </member>
+        <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.GetByNameAsync(System.String)">
+            <summary>
+            Obter um Produto pelo Nome
+            </summary>
+            <param name="name">Campo para trazer o Produto em especifico</param>
+            <returns>Dados do Produto especificado</returns>
+            <response code="200">Sucesso</response>
+            <response code="404">Não encontrado</response>
+        </member>
+        <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.OrderByProductAsync(System.String)">
+            <summary>
+            Obter uma coleção de Produtos ordenados
+            </summary>
+            <param name="name">Escolha entre Name, Stock ou Value para trazer a ordenação</param>
+            <returns>Lista de dados ordenada dos Produtos</returns>
+            <response code="200">Sucesso</response>
+            <response code="400">Bad Request</response>
+        </member>
+        <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.CreateAsync(WakeCommerceCRUDProduct.Application.DTOs.ProductDTO)">
+            <summary>
+            Cadastrar um Produto
+            </summary>
+            <remarks>
+            {
+            "name": "string",
+            "stock": 0,
+            "value": 0
+            }
+            </remarks>
+            <param name="productDTO">Dados do Produto</param>
+            <returns>Produto recém criado</returns>
+            <response code="200">Sucesso</response>
+        </member>
+        <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.UpdateAsync(System.Int32,WakeCommerceCRUDProduct.Application.DTOs.ProductDTO)">
+            <summary>
+            Atualizar um Produto
+            </summary>
+            <remarks>
+            {
+            "name": "string",
+            "stock": 0,
+            "value": 0
+            }
+            </remarks>
+            <param name="id">Identificador do Produto</param>
+            <param name="productDTO">Dados do Produto que deseja atualizar</param>
+            <returns>Sem Conteudo</returns>
+            <response code="204">Sucesso</response>
+            <response code="400">Bad Request</response>
+        </member>
+        <member name="M:WakeCommerceCRUDProduct.API.Controllers.ProductController.Delete(System.Int32)">
+            <summary>
+            Deletar um Produto
+            </summary>
+            <param name="id">Identificador do Produto</param>
+            <returns>Sem Conteudo</returns>
+            <response code="204">Sucesso</response>
+            <response code="400">Bad Request</response>
+        </member>
+    </members>
+</doc>

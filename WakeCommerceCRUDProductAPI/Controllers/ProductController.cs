@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WakeCommerceCRUDProduct.Application.DTOs;
 using WakeCommerceCRUDProduct.Application.Interfaces.Services;
-using WakeCommerceCRUDProduct.Application.Services;
 using WakeCommerceCRUDProduct.Domain.Entities;
 
 namespace WakeCommerceCRUDProduct.API.Controllers
@@ -13,7 +11,16 @@ namespace WakeCommerceCRUDProduct.API.Controllers
     {
         private readonly IProductService _productService = productService;
 
+
+        /// <summary>
+        /// Obter todos os Produtos
+        /// </summary>
+        /// <returns>Coleção de Produtos</returns>
+        /// <response code="200">Sucesso</response>
+        /// <response code="500">Erro interno</response>
         [HttpGet("GetAllProducts")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetAllAsync()
         {
             try
@@ -27,7 +34,17 @@ namespace WakeCommerceCRUDProduct.API.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Obter um Produto por Id
+        /// </summary>
+        /// <param name="id">Identificador do Produto</param>
+        /// <returns>Dados do Produto especificado</returns>
+        /// <response code="200">Sucesso</response>
+        /// <response code="404">Não encontrado</response>
         [HttpGet("GetById/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetByIdAsync(int id)
         {
 
@@ -47,7 +64,17 @@ namespace WakeCommerceCRUDProduct.API.Controllers
             
         }
 
+
+        /// <summary>
+        /// Obter um Produto pelo Nome
+        /// </summary>
+        /// <param name="name">Campo para trazer o Produto em especifico</param>
+        /// <returns>Dados do Produto especificado</returns>
+        /// <response code="200">Sucesso</response>
+        /// <response code="404">Não encontrado</response>
         [HttpGet("GetByName/{name}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetByNameAsync(string name)
         {
             try
@@ -64,7 +91,15 @@ namespace WakeCommerceCRUDProduct.API.Controllers
                 return NotFound("Produto Nao Encontrado");
             }
         }
-
+        /// <summary>
+        /// Obter uma coleção de Produtos ordenados
+        /// </summary>
+        /// <param name="name">Escolha entre Name, Stock ou Value para trazer a ordenação</param>
+        /// <returns>Lista de dados ordenada dos Produtos</returns>
+        /// <response code="200">Sucesso</response>
+        /// <response code="400">Bad Request</response>
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpGet("GetOrderByNameOrStockOrValue/{name}")]
         public async Task<IActionResult> OrderByProductAsync(string name)
         {
@@ -82,8 +117,21 @@ namespace WakeCommerceCRUDProduct.API.Controllers
             }
             
         }
-
+        /// <summary>
+        /// Cadastrar um Produto
+        /// </summary>
+        /// <remarks>
+        /// {
+        /// "name": "string",
+        /// "stock": 0,
+        /// "value": 0
+        /// }
+        /// </remarks>
+        /// <param name="productDTO">Dados do Produto</param>
+        /// <returns>Produto recém criado</returns>
+        /// <response code="200">Sucesso</response>
         [HttpPost("Create")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> CreateAsync(ProductDTO productDTO)
         {
             if (!ModelState.IsValid)
@@ -102,10 +150,27 @@ namespace WakeCommerceCRUDProduct.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
 
-        [HttpPut("Update/{id}")]
+        /// <summary>
+        /// Atualizar um Produto
+        /// </summary>
+        /// <remarks>
+        /// {
+        /// "name": "string",
+        /// "stock": 0,
+        /// "value": 0
+        /// }
+        /// </remarks>
+        /// <param name="id">Identificador do Produto</param>
+        /// <param name="productDTO">Dados do Produto que deseja atualizar</param>
+        /// <returns>Sem Conteudo</returns>
+        /// <response code="204">Sucesso</response>
+        /// <response code="400">Bad Request</response>
+    [HttpPut("Update/{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateAsync(int id, ProductDTO productDTO)
         {
             var product = new Product(productDTO.Name, productDTO.Stock, productDTO.Value);
@@ -118,6 +183,13 @@ namespace WakeCommerceCRUDProduct.API.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Deletar um Produto
+        /// </summary>
+        /// <param name="id">Identificador do Produto</param>
+        /// <returns>Sem Conteudo</returns>
+        /// <response code="204">Sucesso</response>
+        /// <response code="400">Bad Request</response>
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {

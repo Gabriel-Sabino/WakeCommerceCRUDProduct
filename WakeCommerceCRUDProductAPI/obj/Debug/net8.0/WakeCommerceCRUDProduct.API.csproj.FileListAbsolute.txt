@@ -5,6 +5,7 @@ D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\b
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\bin\Debug\net8.0\WakeCommerceCRUDProduct.API.runtimeconfig.json
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\bin\Debug\net8.0\WakeCommerceCRUDProduct.API.dll
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\bin\Debug\net8.0\WakeCommerceCRUDProduct.API.pdb
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\bin\Debug\net8.0\WakeCommerceCRUDProduct.API.xml
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\bin\Debug\net8.0\Azure.Core.dll
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\bin\Debug\net8.0\Azure.Identity.dll
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -72,6 +73,7 @@ D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\o
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\obj\Debug\net8.0\WakeCommerceCRUDProduct.API.csproj.CopyComplete
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\obj\Debug\net8.0\WakeCommerceCRUDProduct.API.dll
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\obj\Debug\net8.0\refint\WakeCommerceCRUDProduct.API.dll
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\obj\Debug\net8.0\WakeCommerceCRUDProduct.API.xml
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\obj\Debug\net8.0\WakeCommerceCRUDProduct.API.pdb
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\obj\Debug\net8.0\WakeCommerceCRUDProduct.API.genruntimeconfig.cache
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProductAPI\obj\Debug\net8.0\ref\WakeCommerceCRUDProduct.API.dll

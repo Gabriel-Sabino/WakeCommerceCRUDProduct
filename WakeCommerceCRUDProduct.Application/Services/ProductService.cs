@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.IdentityModel.Tokens;
 using WakeCommerceCRUDProduct.Application.DTOs;
 using WakeCommerceCRUDProduct.Application.Interfaces.Services;
 using WakeCommerceCRUDProduct.Domain.Entities;
@@ -50,8 +44,8 @@ namespace WakeCommerceCRUDProduct.Application.Services
 
         public async Task<IEnumerable<ProductDTO>> GetAllProductAsync()
         {
-            var product = await _productRepository.GetAllProductAsync();
-
+            var product = await _productRepository.GetAllProductAsync()
+                 ?? throw new InvalidOperationException("Produtos não encontrados.");
             IEnumerable<ProductDTO> productDTOs = product
                 .Select(product => new ProductDTO
         {
@@ -66,9 +60,10 @@ namespace WakeCommerceCRUDProduct.Application.Services
 
         public async Task<ProductDTO> GetProductByIdAsync(int id)
         {
-            var product = await _productRepository.GetProductByIdAsync(id);
+            var product = await _productRepository.GetProductByIdAsync(id)
+            ?? throw new InvalidOperationException("Produto não encontrado.");
 
-                ProductDTO productDTO = new()
+            ProductDTO productDTO = new()
                 {
                     Name = product.Name,
                     Stock = product.Stock,
@@ -122,7 +117,7 @@ namespace WakeCommerceCRUDProduct.Application.Services
 
             if (productList == null || !productList.Any())
             {
-                throw new InvalidOperationException("Produto nao encontrado");
+                throw new InvalidOperationException("Produtos nao encontrados");
             }
 
             IEnumerable<ProductDTO> productDTOs = productList

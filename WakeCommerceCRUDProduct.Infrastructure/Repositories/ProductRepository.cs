@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WakeCommerceCRUDProduct.Domain.Entities;
 using WakeCommerceCRUDProduct.Domain.Interfaces.Repositories;
 using WakeCommerceCRUDProduct.Infrastructure.Data;

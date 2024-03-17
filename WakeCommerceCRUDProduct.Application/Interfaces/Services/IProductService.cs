@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WakeCommerceCRUDProduct.Application.DTOs;
+﻿using WakeCommerceCRUDProduct.Application.DTOs;
 using WakeCommerceCRUDProduct.Domain.Entities;
-using WakeCommerceCRUDProduct.Domain.Interfaces.Repositories;
 
 namespace WakeCommerceCRUDProduct.Application.Interfaces.Services
 {

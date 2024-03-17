@@ -1,0 +1,40 @@
+﻿@WakeCommerceCRUDProduct.API_HostAddress = https://localhost:44316
+
+
+GET {{WakeCommerceCRUDProduct.API_HostAddress}}/api/product/GetAllProducts
+
+###
+
+GET {{WakeCommerceCRUDProduct.API_HostAddress}}/api/product/GetById/1
+
+###
+
+GET {{WakeCommerceCRUDProduct.API_HostAddress}}/api/product/GetByName/string
+
+###
+
+GET {{WakeCommerceCRUDProduct.API_HostAddress}}/api/product/GetOrderByNameOrStockOrValue/string
+
+###
+
+POST {{WakeCommerceCRUDProduct.API_HostAddress}}/api/product/Create
+Content-Type: application/json
+
+{
+  //ProductDTO
+}
+
+###
+
+PUT {{WakeCommerceCRUDProduct.API_HostAddress}}/api/product/Update/0
+Content-Type: application/json
+
+{
+  //ProductDTO
+}
+
+###
+
+DELETE {{WakeCommerceCRUDProduct.API_HostAddress}}/api/product/Delete/0
+
+###

@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WakeCommerceCRUDProduct.API.Controllers;
 using WakeCommerceCRUDProduct.Application.DTOs;
 using WakeCommerceCRUDProduct.Application.Services;
@@ -69,7 +64,7 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
                 var productService = new ProductService(new ProductRepository(context));
                 var controller = new ProductController(productService);
                 controller.ModelState.AddModelError("Name", "Name is required");
-                var productDTO = new ProductDTO(); // Empty product DTO with invalid ModelState
+                var productDTO = new ProductDTO();
 
                 // Act
                 var result = await controller.CreateAsync(productDTO);
@@ -90,7 +85,6 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
                 var controller = new ProductController(productService);
                 var productDTO = new ProductDTO { Name = "Test Product", Stock = 10, Value = 100 };
 
-                // Triggering an exception by passing an invalid product
                 productDTO.Name = null;
 
                 // Act
@@ -113,7 +107,6 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                // Adicione um produto existente ao contexto
                 var existingProduct = new Product("Existing Product", 10, 100);
                 existingProduct.ReceiveId(productId);
                 context.Products.Add(existingProduct);
@@ -122,18 +115,16 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                // Crie uma instância de ProductService e ProductController
                 var productService = new ProductService(new ProductRepository(context));
                 var controller = new ProductController(productService);
 
-                // Crie uma instância de ProductDTO para representar os dados atualizados do produto
                 var updatedProductDTO = new ProductDTO { Name = productName, Stock = productStock, Value = productValue };
 
                 // Act
                 var result = await controller.UpdateAsync(productId, updatedProductDTO);
 
                 // Assert
-                Assert.IsType<NoContentResult>(result); // Verifica se o resultado é NoContent
+                Assert.IsType<NoContentResult>(result);
             }
         }
 
@@ -145,16 +136,14 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                // Adicione um produto existente ao contexto
                 var existingProduct = new Product("Existing Product", 10, 100);
-                existingProduct.ReceiveId(productId); // Defina o ID manualmente
+                existingProduct.ReceiveId(productId);
                 context.Products.Add(existingProduct);
                 context.SaveChanges();
             }
 
             using (var context = GetDbContext())
             {
-                // Crie uma instância de ProductService e ProductController
                 var productService = new ProductService(new ProductRepository(context));
                 var controller = new ProductController(productService);
 
@@ -162,7 +151,7 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
                 var result = await controller.Delete(productId);
 
                 // Assert
-                Assert.IsType<NoContentResult>(result); // Verifica se o resultado é NoContent
+                Assert.IsType<NoContentResult>(result);
             }
         }
 
@@ -170,11 +159,11 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
         public async Task Delete_ReturnsBadRequest_WhenProductIdDoesNotExist()
         {
             // Arrange
-            var nonExistentProductId = 999; // ID de um produto que não existe
+            var nonExistentProductId = 999;
 
             using (var context = GetDbContext())
             {
-                // produto inexistente
+                // Product inexistente
             }
 
             using (var context = GetDbContext())
@@ -186,7 +175,7 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
                 var result = await controller.Delete(nonExistentProductId);
 
                 // Assert
-                Assert.IsType<BadRequestResult>(result); // Verifica se o resultado é BadRequest
+                Assert.IsType<BadRequestResult>(result);
             }
         }
 

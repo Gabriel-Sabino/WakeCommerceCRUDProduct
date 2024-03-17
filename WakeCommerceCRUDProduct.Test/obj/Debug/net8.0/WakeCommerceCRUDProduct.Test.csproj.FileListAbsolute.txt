@@ -145,6 +145,7 @@ D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Test
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Test\bin\Debug\net8.0\WakeCommerceCRUDProduct.Infrastructure.dll
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Test\bin\Debug\net8.0\WakeCommerceCRUDProduct.Application.pdb
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Test\bin\Debug\net8.0\WakeCommerceCRUDProduct.API.pdb
+D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Test\bin\Debug\net8.0\WakeCommerceCRUDProduct.API.xml
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Test\bin\Debug\net8.0\WakeCommerceCRUDProduct.Domain.pdb
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Test\bin\Debug\net8.0\WakeCommerceCRUDProduct.Infrastructure.pdb
 D:\Projetos2024\ProjetosGIT\WakeCommerceCRUDProduct\WakeCommerceCRUDProduct.Test\obj\Debug\net8.0\WakeCommerceCRUDProduct.Test.csproj.AssemblyReference.cache
