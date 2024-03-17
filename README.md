@@ -43,7 +43,7 @@ Para promover a reutilização de código e facilitar a herança de entidades, o
 
 ## Code-First e Migrações
 
-WakeCommerceCRUDProduct adota a abordagem Code-First do Entity Framework Core para gerenciar o banco de dados. Isso significa que o modelo de dados é definido por meio de classes de entidade, e o banco de dados é gerado automaticamente a partir dessas classes durante a inicialização do aplicativo.
+WakeCommerceCRUDProduct adota a abordagem Code-First do Entity Framework Core para gerenciar o banco de dados. Isso significa que o modelo de dados é definido por meio de classes de entidade, e o banco de dados é gerado automaticamente a partir dessas classes durante a inicialização do projeto.
 
 Antes de executar o projeto, é crucial garantir que o banco de dados esteja sincronizado com o modelo de dados atualizado. Para isso, utilize as migrações do Entity Framework Core, que permitem gerar e aplicar alterações no banco de dados de forma controlada e consistente.
 
