@@ -47,9 +47,19 @@ WakeCommerceCRUDProduct adota a abordagem Code-First do Entity Framework Core pa
 
 Antes de executar o projeto, é crucial garantir que o banco de dados esteja sincronizado com o modelo de dados atualizado. Para isso, utilize as migrações do Entity Framework Core, que permitem gerar e aplicar alterações no banco de dados de forma controlada e consistente.
 
-Para aplicar as migrações e criar ou atualizar o banco de dados, execute o seguinte comando no terminal: `dotnet ef database update`.
+Para aplicar as migrações e criar ou atualizar o banco de dados, execute o seguinte comando no terminal: `dotnet ef database update`, ou se estiver utilizando o Package Manager `update-database`
 
 Este comando irá aplicar todas as migrações pendentes e garantir que o banco de dados esteja configurado de acordo com o modelo de dados atualizado. Certifique-se de executar este comando sempre que houver alterações no modelo de dados para manter o banco de dados sincronizado e evitar inconsistências.
+
+## Pré-requisitos
+
+Antes de começar, certifique-se de atender aos seguintes requisitos:
+
+- Ter uma IDE compatível com o .NET 8 instalada no seu sistema. Recomendamos o uso do Visual Studio 2019 ou superior, ou o Visual Studio Code com as extensões adequadas para o desenvolvimento .NET.
+- Ter o SQL Server Management Studio (SSMS) instalado para gerenciar e realizar as migrations de criação do banco de dados SQL Server utilizado pelo projeto.
+
+Certifique-se de ter todas essas ferramentas instaladas e configuradas corretamente antes de prosseguir com a configuração e execução do projeto.
+
 
 ## Instalação
 
@@ -59,11 +69,26 @@ Siga estas etapas para instalar e executar o projeto localmente:
    ```bash
    git clone https://github.com/Gabriel-Sabino/WakeCommerceCRUDProduct.git
    ```
+   
 2. Navegue até o diretório/pasta do Projeto 
    ```bash
    cd seu-repositorio
 
-4. Execute o projeto pelo bash ou clique em sua solução e execute a API do Projeto via Swagger
+3. Abra o projeto e atualize DefaultConnection dentro do arquivo appsettings.json em WakeCommerceCRUDProduct.API
+   ```bash
+   "ConnectionStrings": {
+      "DefaultConnection": "Server=YourServer; Database=WakeCommerceCRUDProductDB; Integrated Security=True; trustServerCertificate=true;"},
+   
+   ```
+4. Certifique-se de realizar a atualização do Banco de Dados via Migration:
+   ```bash
+   dotnet ef database update
+   ```
+   Ou se você estiver utilizando o Package Manager:
+   ```bash
+   Update-Database
+   ```
+5. Execute o projeto pelo bash ou se você estiver usando uma IDE como o Visual Studio, basta executar a API do projeto via Swagger.
    ```bash
    dotnet run
 
