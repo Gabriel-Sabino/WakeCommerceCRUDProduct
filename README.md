@@ -1,7 +1,7 @@
 # WakeCommerceCRUDProduct
 ![image](https://github.com/Gabriel-Sabino/WakeCommerceCRUDProduct/assets/71478369/a04b19fc-7720-45bd-937c-3c8ec00c0de0)
 
-![Version](https://img.shields.io/badge/Version%201.0-8A2BE2)
+![Version](https://img.shields.io/badge/Version%201.1-8A2BE2)
 [![LinkedIn](https://img.shields.io/badge/Linkedin-blue)](https://www.linkedin.com/in/gabriel-sabino1/)
 [![Project Status: Development](https://img.shields.io/badge/Project%20Status-Development-orange)](https://github.com/Gabriel-Sabino/WakeCommerceCRUDProduct)
 ![Commit Activity](https://img.shields.io/github/commit-activity/t/Gabriel-Sabino/WakeCommerceCRUDProduct?color=darkgreen)
@@ -29,9 +29,11 @@ Bem-vindo ao WakeCommerceCRUDProduct, uma API CRUD simples para gerenciar produt
 - **Update:** Modifique detalhes existentes do produto, como Name, Stock e Value.
 - **Delete:** Remova produtos do banco de dados, garantindo um gerenciamento preciso do mesmo.
 
-## Estado do Projeto
+## Estado do Projeto e Novas Funcionalidades
 
 Este projeto está atualmente em desenvolvimento ativo, com aprimoramentos contínuos sendo feitos para melhorar a funcionalidade e a experiência do usuário.
+
+Além disso, o projeto agora possui a utilização de cache em memória para uma rápida extração de dados das listas GetOrderByNameOrStockOrValue e GetAll. Isso proporciona uma melhoria significativa no desempenho e na eficiência das operações de leitura, garantindo uma resposta mais rápida ao usuário.
 
 ## Arquitetura e Princípios
 
