@@ -3,7 +3,9 @@ using Microsoft.OpenApi.Models;
 using WakeCommerceCRUDProduct.Application.Interfaces.Services;
 using WakeCommerceCRUDProduct.Application.Services;
 using WakeCommerceCRUDProduct.Domain.Entities;
+using WakeCommerceCRUDProduct.Domain.Interfaces.Cache;
 using WakeCommerceCRUDProduct.Domain.Interfaces.Repositories;
+using WakeCommerceCRUDProduct.Infrastructure.Cache;
 using WakeCommerceCRUDProduct.Infrastructure.Data;
 using WakeCommerceCRUDProduct.Infrastructure.Repositories;
 
@@ -15,9 +17,11 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
 
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICacheInMemory, CacheInMemory>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddMemoryCache();
 
 //documentacao API
 builder.Services.AddSwaggerGen(c =>
@@ -53,11 +57,11 @@ using (var scope = app.Services.CreateScope())
     if (!dbContext.Products.Any())
     {
         dbContext.Products.AddRange(
-                    new Product("Product 1", 10, 100),
+                    new Product("Product 1", 30, 500),
                     new Product("Product 2", 20, 200),
-                    new Product("Product 3", 30, 300),
+                    new Product("Product 3", 10, 300),
                     new Product("Product 4", 40, 400),
-                    new Product("Product 5", 50, 500)
+                    new Product("Product 5", 50, 100)
         );
 
         dbContext.SaveChanges();

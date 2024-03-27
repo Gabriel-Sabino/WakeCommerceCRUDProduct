@@ -1,29 +1,29 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.IdentityModel.Tokens;
 using System.Globalization;
 using WakeCommerceCRUDProduct.Application.DTOs;
 using WakeCommerceCRUDProduct.Application.Interfaces.Services;
 using WakeCommerceCRUDProduct.Domain.Entities;
+using WakeCommerceCRUDProduct.Domain.Interfaces.Cache;
 using WakeCommerceCRUDProduct.Domain.Interfaces.Repositories;
 
 namespace WakeCommerceCRUDProduct.Application.Services
 {
-    public class ProductService : IProductService
+    public class ProductService(ICacheInMemory cacheInMemory, IProductRepository productRepository) : IProductService
     {
-        private readonly IProductRepository _productRepository;
-
-        public ProductService(IProductRepository productRepository)
-        {
-            _productRepository = productRepository;
-        }
+        private readonly IProductRepository _productRepository = productRepository;
+        private readonly ICacheInMemory _cacheInMemory = cacheInMemory;
 
         public async Task<ProductDTO> CreateProductAsync(Product productInfo)
         {
             if(productInfo.Value < 0 || productInfo.Name.IsNullOrEmpty() || productInfo.Stock < 0)
             {
-                throw new ArgumentException("O produto deve estar preenchido.");
+                throw new ArgumentException("O produto deve estar preenchido com informações validas.");
             }
 
             var product = await _productRepository.CreateProductAsync(productInfo);
+
+            await _cacheInMemory.UpdateCache();
 
             ProductDTO productDTO = new()
             {
@@ -33,31 +33,53 @@ namespace WakeCommerceCRUDProduct.Application.Services
             };
 
             return productDTO;
-
-
         }
 
         public async Task<int> DeleteProductAsync(int id)
         {
-            return await _productRepository.DeleteProductAsync(id);
+            var deletedProduct =  await _productRepository.DeleteProductAsync(id);
+
+            if(deletedProduct == 0)
+            {
+                throw new ArgumentException("Produto Não encontrado para deletar");
+            }
+
+            await _cacheInMemory.UpdateCache();
+
+            return deletedProduct;
+        }
+
+        public async Task<int> UpdateProductAsync(int id, Product product)
+        {
+            var existingProduct = await _productRepository.GetProductByIdAsync(id)
+                ?? throw new InvalidOperationException("Produto não encontrado para atualizar.");
+
+            existingProduct.UpdateName(product.Name);
+            existingProduct.UpdateStock(product.Stock);
+            existingProduct.UpdateValue(product.Value);
+            existingProduct.UpdateModifiedAt();
+
+            var updatedProduct = await _productRepository.UpdateProductAsync(id, existingProduct);
+            await _cacheInMemory.UpdateCache();
+
+            return updatedProduct;
         }
 
         public async Task<IEnumerable<ProductDTO>> GetAllProductAsync()
         {
-            var product = await _productRepository.GetAllProductAsync()
-                 ?? throw new InvalidOperationException("Produtos não encontrados.");
+            var productCache = await _cacheInMemory.GetProductsFromCacheOrRepositoryAsync("getallproducts");
 
-            IEnumerable<ProductDTO> productDTOs = product
-                .Select(product => new ProductDTO
-        {
-            Name = product.Name,
-            Stock = product.Stock,
-            Value = product.Value
-        }).ToList();
+            var productDTOs = productCache.Select(product => new ProductDTO
+            {
+                Name = product.Name,
+                Stock = product.Stock,
+                Value = product.Value
+            }).ToList();
 
             return productDTOs;
-
         }
+
+
 
         public async Task<ProductDTO> GetProductByIdAsync(int id)
         {
@@ -74,18 +96,7 @@ namespace WakeCommerceCRUDProduct.Application.Services
                 return productDTO;
         }
 
-        public async Task<int> UpdateProductAsync(int id, Product product)
-        {
-            var existingProduct = await _productRepository.GetProductByIdAsync(id) 
-                ?? throw new InvalidOperationException("Produto não encontrado para atualizar.");
-
-            existingProduct.UpdateName(product.Name);
-            existingProduct.UpdateStock(product.Stock);
-            existingProduct.UpdateValue(product.Value);
-            existingProduct.UpdateModifiedAt();
-
-            return await _productRepository.UpdateProductAsync(id, existingProduct);
-        }
+        
 
         public async Task<ProductDTO> GetProductByNameAsync(string name)
         {            
@@ -105,31 +116,30 @@ namespace WakeCommerceCRUDProduct.Application.Services
 
         public async Task<IEnumerable<ProductDTO>> OrderByProductListAsync(string name)
         {
-            var productList = new List<Product>();
-            var orderByNameStockValue = name.ToLower();
+            var orderName = name.ToLower();
 
-            if (orderByNameStockValue == "name")
-                productList = await _productRepository.OrderByNameProductListAsync();
-            else if (orderByNameStockValue == "stock")
-                productList = await _productRepository.OrderByStockProductListAsync();
-            else if (orderByNameStockValue == "value")
-                productList = await _productRepository.OrderByValueProductListAsync();
+            var orderedProduct = await _cacheInMemory.GetProductsFromCacheOrRepositoryAsync("getallproducts");
 
-
-            if (productList == null || !productList.Any())
+            if (orderName == "name")
+                orderedProduct = orderedProduct.OrderBy(x => x.Name);
+            else if (orderName == "stock")
+                orderedProduct = orderedProduct.OrderBy(x => x.Stock);
+            else if (orderName == "value")
+                orderedProduct = orderedProduct.OrderBy(x => x.Value);
+            else
             {
-                throw new InvalidOperationException("Produtos nao encontrados");
+                throw new ArgumentException("Digite entre as opcoes: Name, Stock ou Value");
             }
-
-            IEnumerable<ProductDTO> productDTOs = productList
-                .Select(product => new ProductDTO
-                {
-                    Name = product.Name,
-                    Stock = product.Stock,
-                    Value = product.Value
-                }).ToList();
+            var productDTOs = orderedProduct.Select(product => new ProductDTO
+            {
+                Name = product.Name,
+                Stock = product.Stock,
+                Value = product.Value
+            }).ToList();
 
             return productDTOs;
         }
+
+
     }
 }

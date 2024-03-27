@@ -10,14 +10,9 @@ using WakeCommerceCRUDProduct.Infrastructure.Data;
 
 namespace WakeCommerceCRUDProduct.Infrastructure.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository(ProductDbContext productDbContext) : IProductRepository
     {
-        private readonly ProductDbContext _dbContext;
-
-        public ProductRepository(ProductDbContext productDbContext)
-        {
-            _dbContext = productDbContext;
-        }
+        private readonly ProductDbContext _dbContext = productDbContext;
 
         public async Task<Product> CreateProductAsync(Product product)
         {

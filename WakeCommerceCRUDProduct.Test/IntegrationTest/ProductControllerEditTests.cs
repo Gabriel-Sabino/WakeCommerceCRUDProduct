@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using WakeCommerceCRUDProduct.API.Controllers;
 using WakeCommerceCRUDProduct.Application.DTOs;
 using WakeCommerceCRUDProduct.Application.Services;
 using WakeCommerceCRUDProduct.Domain.Entities;
+using WakeCommerceCRUDProduct.Domain.Interfaces.Cache;
+using WakeCommerceCRUDProduct.Infrastructure.Cache;
 using WakeCommerceCRUDProduct.Infrastructure.Data;
 using WakeCommerceCRUDProduct.Infrastructure.Repositories;
 
@@ -22,10 +25,10 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
         public void Dispose()
         {
-            using (var context = new ProductDbContext(_options))
-            {
-                context.Database.EnsureDeleted();
-            }
+            using var context = new ProductDbContext(_options);
+            context.Database.EnsureDeleted();
+
+            GC.SuppressFinalize(this);
         }
 
         private ProductDbContext GetDbContext()
@@ -37,63 +40,64 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
         public async Task CreateAsync_ReturnsOkResult_WhenProductIsValid()
         {
             // Arrange
-            using (var context = GetDbContext())
-            {
-                var productService = new ProductService(new ProductRepository(context));
-                var controller = new ProductController(productService);
-                var productDTO = new ProductDTOCreateAndUpdate { Name = "Test Product", Stock = 10, Value = "100" };
+            using var context = GetDbContext();
+            var memoryCache = new MemoryCache(new MemoryCacheOptions());
+            var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+            var productService = new ProductService(cacheInMemory, new ProductRepository(context));
+            var controller = new ProductController(productService);
+            var productDTO = new ProductDTOCreateAndUpdate { Name = "Test Product", Stock = 10, Value = "100" };
 
-                // Act
-                var result = await controller.CreateAsync(productDTO);
+            // Act
+            var result = await controller.CreateAsync(productDTO);
 
-                // Assert
-                var okResult = Assert.IsType<OkObjectResult>(result);
-                var createdProduct = Assert.IsType<ProductDTO>(okResult.Value);
-                Assert.Equal(productDTO.Name, createdProduct.Name);
-                Assert.Equal(productDTO.Stock, createdProduct.Stock);
-                Assert.Equal(productDTO.Value, createdProduct.Value.ToString());
-            }
+            // Assert
+            var okResult = Assert.IsType<OkObjectResult>(result);
+            var createdProduct = Assert.IsType<ProductDTO>(okResult.Value);
+            Assert.Equal(productDTO.Name, createdProduct.Name);
+            Assert.Equal(productDTO.Stock, createdProduct.Stock);
+            Assert.Equal(productDTO.Value, createdProduct.Value.ToString());
         }
+
 
         [Fact]
         public async Task CreateAsync_ReturnsBadRequest_WhenModelStateIsNotValid()
         {
             // Arrange
-            using (var context = GetDbContext())
-            {
-                var productService = new ProductService(new ProductRepository(context));
-                var controller = new ProductController(productService);
-                controller.ModelState.AddModelError("Name", "Name is required");
-                var productDTO = new ProductDTOCreateAndUpdate();
+            using var context = GetDbContext();
+            var memoryCache = new MemoryCache(new MemoryCacheOptions());
+            var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+            var productService = new ProductService(cacheInMemory, new ProductRepository(context));
+            var controller = new ProductController(productService);
+            controller.ModelState.AddModelError("Name", "Name is required");
+            var productDTO = new ProductDTOCreateAndUpdate { Name = "", Stock = 0, Value = "" };
 
-                // Act
-                var result = await controller.CreateAsync(productDTO);
+            // Act
+            var result = await controller.CreateAsync(productDTO);
 
-                // Assert
-                var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-                Assert.IsType<SerializableError>(badRequestResult.Value);
-            }
+            // Assert
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            Assert.IsType<SerializableError>(badRequestResult.Value);
         }
 
         [Fact]
         public async Task CreateAsync_ReturnsBadRequest_WhenExceptionOccurs()
         {
             // Arrange
-            using (var context = GetDbContext())
-            {
-                var productService = new ProductService(new ProductRepository(context));
-                var controller = new ProductController(productService);
-                var productDTO = new ProductDTOCreateAndUpdate { Name = "Test Product", Stock = 10, Value = "100" };
+            using var context = GetDbContext();
+            var memoryCache = new MemoryCache(new MemoryCacheOptions());
+            var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+            var productService = new ProductService(cacheInMemory, new ProductRepository(context));
+            var controller = new ProductController(productService);
+            var productDTO = new ProductDTOCreateAndUpdate { Name = "Test Product", Stock = 10, Value = "100" };
 
-                productDTO.Name = null;
+            productDTO.Name = null;
 
-                // Act
-                var result = await controller.CreateAsync(productDTO);
+            // Act
+            var result = await controller.CreateAsync(productDTO);
 
-                // Assert
-                var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
-                Assert.IsType<string>(badRequestResult.Value);
-            }
+            // Assert
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
+            Assert.IsType<string>(badRequestResult.Value);
         }
 
         [Fact]
@@ -115,7 +119,9 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                var productService = new ProductService(new ProductRepository(context));
+                var memoryCache = new MemoryCache(new MemoryCacheOptions());
+                var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+                var productService = new ProductService(cacheInMemory, new ProductRepository(context));
                 var controller = new ProductController(productService);
 
                 var updatedProductDTO = new ProductDTOCreateAndUpdate { Name = productName, Stock = productStock, Value = productValue };
@@ -144,7 +150,9 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                var productService = new ProductService(new ProductRepository(context));
+                var memoryCache = new MemoryCache(new MemoryCacheOptions());
+                var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+                var productService = new ProductService(cacheInMemory, new ProductRepository(context));
                 var controller = new ProductController(productService);
 
                 // Act
@@ -168,14 +176,16 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                var productService = new ProductService(new ProductRepository(context));
+                var memoryCache = new MemoryCache(new MemoryCacheOptions());
+                var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+                var productService = new ProductService(cacheInMemory, new ProductRepository(context));
                 var controller = new ProductController(productService);
 
                 // Act
                 var result = await controller.Delete(nonExistentProductId);
 
                 // Assert
-                Assert.IsType<BadRequestResult>(result);
+                Assert.IsType<BadRequestObjectResult>(result);
             }
         }
 

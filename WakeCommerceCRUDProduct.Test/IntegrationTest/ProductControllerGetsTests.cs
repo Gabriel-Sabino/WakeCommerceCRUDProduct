@@ -12,6 +12,8 @@ using WakeCommerceCRUDProduct.Application.Services;
 using Xunit;
 using WakeCommerceCRUDProduct.Infrastructure.Repositories;
 using Moq;
+using Microsoft.Extensions.Caching.Memory;
+using WakeCommerceCRUDProduct.Infrastructure.Cache;
 
 namespace WakeCommerceCRUDProduct.Tests
 {
@@ -55,8 +57,9 @@ namespace WakeCommerceCRUDProduct.Tests
 
             using (var context = GetDbContext()) 
             {
-                var repository = new ProductRepository(context);
-                var productService = new ProductService(repository);
+                var memoryCache = new MemoryCache(new MemoryCacheOptions());
+                var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+                var productService = new ProductService(cacheInMemory, new ProductRepository(context));
                 var controller = new ProductController(productService);
 
                 // Act
@@ -109,8 +112,9 @@ namespace WakeCommerceCRUDProduct.Tests
 
             using (var context = GetDbContext())
             {
-                var repository = new ProductRepository(context);
-                var productService = new ProductService(repository);
+                var memoryCache = new MemoryCache(new MemoryCacheOptions());
+                var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+                var productService = new ProductService(cacheInMemory, new ProductRepository(context));
                 var controller = new ProductController(productService);
 
                 // Act
@@ -138,8 +142,9 @@ namespace WakeCommerceCRUDProduct.Tests
 
             using (var context = GetDbContext())
             {
-                var repository = new ProductRepository(context);
-                var productService = new ProductService(repository);
+                var memoryCache = new MemoryCache(new MemoryCacheOptions());
+                var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+                var productService = new ProductService(cacheInMemory, new ProductRepository(context));
                 var controller = new ProductController(productService);
 
                 // Act

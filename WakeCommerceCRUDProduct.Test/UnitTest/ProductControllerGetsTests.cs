@@ -59,8 +59,8 @@ namespace WakeCommerceCRUDProduct.Test.UnitTest
             var productServiceMock = new Mock<IProductService>();
             var expectedProducts = new List<ProductDTO>
             {
-                new ProductDTO { Name = "Product 1", Stock = 10, Value = 100 },
-                new ProductDTO { Name = "Product 2", Stock = 15, Value = 150 }
+                new() { Name = "Product 1", Stock = 10, Value = 100 },
+                new() { Name = "Product 2", Stock = 15, Value = 150 }
             };
             productServiceMock.Setup(x => x.GetAllProductAsync()).ReturnsAsync(expectedProducts);
 
@@ -152,9 +152,9 @@ namespace WakeCommerceCRUDProduct.Test.UnitTest
             var productServiceMock = new Mock<IProductService>();
             var expectedProducts = new List<ProductDTO>
             {
-                new ProductDTO { Name = "Product A", Stock = 10, Value = 100 },
-                new ProductDTO { Name = "Product B", Stock = 5, Value = 50 },
-                new ProductDTO { Name = "Product C", Stock = 20, Value = 200 }
+                new() { Name = "Product A", Stock = 10, Value = 100 },
+                new() { Name = "Product B", Stock = 5, Value = 50 },
+                new() { Name = "Product C", Stock = 20, Value = 200 }
             };
             productServiceMock.Setup(x => x.OrderByProductListAsync(It.IsAny<string>())).ReturnsAsync(expectedProducts);
 
@@ -182,7 +182,7 @@ namespace WakeCommerceCRUDProduct.Test.UnitTest
             var result = await controller.OrderByProductAsync("InvalidField");
 
             // Assert
-            var badRequestResult = Assert.IsType<BadRequestResult>(result);
+            var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
         }
 
     }

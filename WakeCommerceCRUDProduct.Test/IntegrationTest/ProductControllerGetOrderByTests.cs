@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using WakeCommerceCRUDProduct.Application.DTOs;
 using WakeCommerceCRUDProduct.Application.Interfaces.Services;
 using WakeCommerceCRUDProduct.Application.Services;
 using WakeCommerceCRUDProduct.Domain.Entities;
+using WakeCommerceCRUDProduct.Infrastructure.Cache;
 using WakeCommerceCRUDProduct.Infrastructure.Data;
 using WakeCommerceCRUDProduct.Infrastructure.Repositories;
 
@@ -29,10 +31,10 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
         public void Dispose()
         {
-            using (var context = new ProductDbContext(_options))
-            {
-                context.Database.EnsureDeleted();
-            }
+            using var context = new ProductDbContext(_options);
+            context.Database.EnsureDeleted();
+
+            GC.SuppressFinalize(this);
         }
 
         private ProductDbContext GetDbContext()
@@ -59,7 +61,9 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                var productService = new ProductService(new ProductRepository(context));
+                var memoryCache = new MemoryCache(new MemoryCacheOptions());
+                var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+                var productService = new ProductService(cacheInMemory, new ProductRepository(context));
                 var controller = new ProductController(productService);
 
                 // Act
@@ -93,7 +97,9 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                var productService = new ProductService(new ProductRepository(context));
+                var memoryCache = new MemoryCache(new MemoryCacheOptions());
+                var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+                var productService = new ProductService(cacheInMemory, new ProductRepository(context));
                 var controller = new ProductController(productService);
 
                 // Act
@@ -127,7 +133,9 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                var productService = new ProductService(new ProductRepository(context));
+                var memoryCache = new MemoryCache(new MemoryCacheOptions());
+                var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+                var productService = new ProductService(cacheInMemory, new ProductRepository(context));
                 var controller = new ProductController(productService);
 
                 // Act
@@ -162,14 +170,16 @@ namespace WakeCommerceCRUDProduct.Test.IntegrationTest
 
             using (var context = GetDbContext())
             {
-                var productService = new ProductService(new ProductRepository(context));
+                var memoryCache = new MemoryCache(new MemoryCacheOptions());
+                var cacheInMemory = new CacheInMemory(memoryCache, new ProductRepository(context));
+                var productService = new ProductService(cacheInMemory, new ProductRepository(context));
                 var controller = new ProductController(productService);
 
                 // Act
                 var result = await controller.OrderByProductAsync("invalid");
 
                 // Assert
-                var badRequestResult = Assert.IsType<BadRequestResult>(result);
+                var badRequestResult = Assert.IsType<BadRequestObjectResult>(result);
             }
         }
 
